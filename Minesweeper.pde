@@ -23,13 +23,23 @@ void setup ()
         {
            buttons[x][y] = new MSButton(x, y); 
         }
-    }   
+    }
+    bombs = new ArrayList <MSButton>();   
     
     setBombs();
 }
 public void setBombs()
 {
     //your code
+    for(int i = 0; i < 200; i++)
+    {
+        int row = (int)(Math.random()*20);
+        int col = (int)(Math.random()*20);
+        if(bombs.contains(buttons[row][col]) == false)
+        {
+            bombs.add(buttons[row][col]);
+        }
+    }
 }
 
 public void draw ()
@@ -46,6 +56,7 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     //your code here
+    //"Congratulations \n You Lost"
 }
 public void displayWinningMessage()
 {
@@ -91,8 +102,8 @@ public class MSButton
     {    
         if (marked)
             fill(0);
-        // else if( clicked && bombs.contains(this) ) 
-        //     fill(255,0,0);
+         else if( clicked && bombs.contains(this) ) 
+             fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
@@ -109,6 +120,8 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
+        if((r < 20 && r > -1)&& (c < 20 && c > -1) == true)
+            return true;
         return false;
     }
     public int countBombs(int row, int col)
